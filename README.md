@@ -14,3 +14,7 @@ Default is to minimize *total calories* subject to nutritional completeness. Any
  
 * Innermost set is a basket of foods. To find the amount of each food that meets nutritional requirements I use an LP solver (`cvxopt`).
 * Outer optimization chooses which foods to place in baskets. This uses a genetic algorithm (`deap`). It generates baskets of foods with items that tend to perform well together.
+
+## Contact
+
+Reach Paul at spartansupper@sent.com

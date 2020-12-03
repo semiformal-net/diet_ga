@@ -8,6 +8,8 @@ import pickle
 import pandas
 import numpy
 from deap import base, creator, tools, algorithms
+from cvxopt import matrix, solvers # an alternative linear programming library
+solvers.options['show_progress'] = False
 from sklearn.preprocessing import normalize
 from sklearn.cluster import KMeans
 import random
