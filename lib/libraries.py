@@ -83,6 +83,7 @@ def load_data():
             and b.long_desc not like 'Candies, %'
             and b.long_desc not like 'Water, bottled%'
             and b.long_desc not like 'Beverages,%'
+            and b.long_desc not like 'Energy drink,%'
             and not ( food_group_id in (100,500,700,1000,1300,1500,1600) and                 -- disallow raw foods from certain food groups (eg, meat)
     ( long_desc like  '%, raw,%' or long_desc like  '%, raw' or long_desc like  '%, uncooked,%' or long_desc like  '%, uncooked' )  )
     """
