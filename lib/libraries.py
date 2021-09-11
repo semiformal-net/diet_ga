@@ -132,7 +132,7 @@ def do_clust(N,lim,req,nut):
 # This is how deap wants its evaluate function:
 #  it accepts one individual (one basket of foods)
 #  and returns a tuple of fitness
-def evaluate(individual, nut,limt,reqd):
+def evaluate(individual, nut,limt,reqd,metric_nutrients=[208],metric_weights=[1]):
     nt=nut.iloc[individual,:]
     c = matrix(numpy.repeat(1.0,nt.shape[0]))
     np_G= numpy.concatenate(
@@ -155,7 +155,7 @@ def evaluate(individual, nut,limt,reqd):
     if o['status'] != 'optimal':
         fit=9e9
     else:
-        fit = numpy.dot(nt.loc[:,208].values,numpy.array(o['x'])).item(0)
+        fit = numpy.dot( numpy.array(o['x']).transpose(), nt.loc[:,metric_nutrients].values * numpy.array(metric_weights) ).item(0)     #numpy.dot(nt.loc[:,metric_nutrients].values,numpy.array(o['x'])).item(0)
     return (fit,)    
 
 def makeclusters(nclust,limt,reqd,nutrients ):
