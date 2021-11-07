@@ -122,6 +122,37 @@ def load_data():
     
     return (nutrients,reqd,limt,food_desc,nutrient_desc)
 
+def get_food_lists():
+    veg_with_eggs_and_dairy="""
+        select distinct id
+    from food
+    where food_group_id not in (200,500,700,1000,1300,1500,1700,1400,    300,800,1800,2100,2200,3500,3600)
+    and id not in (4001,4002,4520,4542,4574,4575,4576,4589,4590,4591,4592,4593,4594,4609,4606,6180,19041)
+    and not ( short_desc like '%GELATIN%' )
+    and not ( food_group_id=600 and short_desc like '%CHICK%' )
+    and not ( food_group_id=600 and short_desc like '%BF %' )
+    and not ( food_group_id=600 and short_desc like '%CRAB%' )
+    and not ( food_group_id=600 and short_desc like '%BROTH%' )
+    and not ( food_group_id=600 and short_desc like '%STOCK%' )
+    and not ( food_group_id=600 and short_desc like '%CONSOMME%' )
+    and not ( food_group_id=600 and short_desc like '%BOUILLON%' )
+    and not ( food_group_id=600 and short_desc like '%FISH%' )
+    and not ( food_group_id=600 and short_desc like '%GRAVY%' )
+    and not ( food_group_id=600 and short_desc like '%CLAM%' )
+    and not ( food_group_id=600 and short_desc like '%HAM%' )
+    and not ( food_group_id=600 and short_desc like '%BURGER%' )
+    and not ( food_group_id=600 and short_desc like '%BACON%' )
+    and not ( food_group_id=600 and short_desc like '%OYSTER%' )
+    and not ( food_group_id=600 and short_desc like '%TURKEY%' )
+    and not ( food_group_id=600 and short_desc like '%SHRIMP%' )
+    """
+    conn = sqlite3.connect('data/usda.sql3')
+    tmp=pandas.read_sql(veg_with_eggs_and_dairy,conn)
+    
+    get_food_lists={'veg_with_eggs_and_dairy': tmp.iloc[:,0].to_list() }
+    
+    return(get_food_lists) 
+
 def do_clust(N,lim,req,nut):
     relevant=pandas.concat( [lim[lim<1.0e10], req[req>0]],axis=1).index # just the nutrients involved in limits; 10e10 and 0 are defaults for limt & reqd
     km=KMeans(n_clusters=N,random_state=10, init='k-means++') 
